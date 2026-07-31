@@ -130,8 +130,27 @@ std::string ChessGame::GetInput() {
   return "";
 }
 
-void ChessGame::Update(std::string move) {
+void ChessGame::CheckRules(std::string move) {};
 
-  // std::cout << move << std::endl;
+void ChessGame::Update(std::string move) {
+  std::string src = move.substr(0, 2);
+  std::string dest = move.substr(2, 2);
+
+  Bitboard position = 0x1;
+  int shifter = Coor2Array(src);
+  position = position << shifter;
+  ;
+
+  Piece *tempPiece = FindAt(position);
+  std::cout << (tempPiece->black ? tempPiece->type
+                                 : (char)toupper(tempPiece->type))
+            << std::endl;
+
+  /*
+   * move piece at src var into the place at dest var
+   * if piece at dest variable remove it from the GamePieces
+   * update won bool and any other game counters. (turn count, playermove,
+   * ect)
+   */
   return;
 }

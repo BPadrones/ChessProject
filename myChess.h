@@ -52,6 +52,8 @@ public:
    * character string with the first 2 characters being coors for the source and
    * the last 2 characters being coors for the destination.*/
 
+  void CheckRules(std::string move);
+
   Piece *FindAt(Bitboard position);
   /* This function takes a unsigned long long(chessboard position) and returns a
    * pointer to the chessPiece that is at position. */
