@@ -22,9 +22,12 @@ int main() {
   // Temp comment out to test the Update Function //
   // playerMove = game1.GetInput();
   // game1.CheckRules(playerMove);
-  game1.Update("A1H8");
-  game1.Update("E1H8");
-  game1.Update("E8H8");
+  game1.Update("D2D4");
+  game1.Update("C7C5");
+  game1.Update("B1C3");
+  game1.PrintBoard();
+  game1.Update("E1E2");
+  game1.PrintBoard();
   // std::cout << "\e[1J\033[1;1H"; // terminal commands that clear the
   // terminal std::cout.flush();             // and print new input like a
   // video game.

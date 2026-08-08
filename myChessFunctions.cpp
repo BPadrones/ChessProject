@@ -136,12 +136,16 @@ void ChessGame::Update(std::string move) {
   std::string src = move.substr(0, 2);
   std::string dest = move.substr(2, 2);
 
-  Bitboard position = 0x1;
+  Bitboard src_position = 0x1;
   int shifter = Coor2Array(src);
-  position = position << shifter;
-  ;
+  src_position = src_position << shifter;
 
-  Piece *tempPiece = FindAt(position);
+  Bitboard dest_position = 0x1;
+  shifter = Coor2Array(dest);
+  dest_position = dest_position << shifter;
+
+  Piece *tempPiece = FindAt(src_position);
+  tempPiece->position = dest_position;
   std::cout << (tempPiece->black ? tempPiece->type
                                  : (char)toupper(tempPiece->type))
             << std::endl;
