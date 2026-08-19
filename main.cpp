@@ -28,6 +28,8 @@ int main() {
   game1.PrintBoard();
   game1.Update("E1E2");
   game1.PrintBoard();
+  game1.Update("C1E8");
+  game1.PrintBoard();
   // std::cout << "\e[1J\033[1;1H"; // terminal commands that clear the
   // terminal std::cout.flush();             // and print new input like a
   // video game.

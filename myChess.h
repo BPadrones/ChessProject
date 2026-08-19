@@ -25,9 +25,9 @@ class ChessGame {
 private:
   Piece GamePieces[32];
   // GamePieces =
-  // {r,n,b,q,k,b,n,r,p,p,p,p,p,p,p,p,R,N,B,Q,K,B,N,R,P,P,P,P,P,P,P,P,P} Black
-  // Piceces :[0][7] r, [1][6] n,[2][5] b,[3] q,[4] k, [8-15] p White Pieces
-  // :[16][23] R, [17][22] N,[18][21] B,[19] Q,[20] K,[24-32]P
+  // {r,n,b,q,k,b,n,r,p,p,p,p,p,p,p,p,R,N,B,Q,K,B,N,R,P,P,P,P,P,P,P,P}
+  // Black Piceces :[0][7] r, [1][6] n,[2][5] b,[3] q,[4] k, [8-15] p
+  // White Pieces :[16][23] R, [17][22] N,[18][21] B,[19] Q,[20] K,[24-31]P
   bool parseMove(std::string playerMove);
   // makes sure playermove is a 2 character string withe the first letter being
   // A-H and the second being 1-8

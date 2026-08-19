@@ -145,11 +145,22 @@ void ChessGame::Update(std::string move) {
   dest_position = dest_position << shifter;
 
   Piece *tempPiece = FindAt(src_position);
-  tempPiece->position = dest_position;
-  std::cout << (tempPiece->black ? tempPiece->type
-                                 : (char)toupper(tempPiece->type))
-            << std::endl;
+  Piece *oldpiece = FindAt(dest_position);
 
+  oldpiece->position = 0;
+
+  int start = tempPiece->black ? 0 : 16;
+  int end = tempPiece->black ? 16 : 32;
+
+  for (int i = start; i < end; i++) {
+    if (GamePieces[i].position == (dest_position & GamePieces[i].position)) {
+      std::cerr << "Error: In function ChessGame::Update// Cannot take "
+                   "pieces of the same color!\n";
+      return;
+    }
+  }
+
+  tempPiece->position = dest_position;
   /*
    * move piece at src var into the place at dest var
    * if piece at dest variable remove it from the GamePieces
