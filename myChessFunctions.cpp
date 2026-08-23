@@ -78,7 +78,7 @@ void ChessGame::PrintBoard() {
       check = check << ((row * 8) + col);
       std::vector<Piece> collisions;
       for (Piece x : GamePieces) {
-        if (x.position == (x.position & check))
+        if (0 == (x.position ^ check))
           collisions.push_back(x);
       }
       if (collisions.size() > 1) {
@@ -145,21 +145,25 @@ void ChessGame::Update(std::string move) {
   dest_position = dest_position << shifter;
 
   Piece *tempPiece = FindAt(src_position);
-  Piece *oldpiece = FindAt(dest_position);
 
-  oldpiece->position = 0;
-
-  int start = tempPiece->black ? 0 : 16;
-  int end = tempPiece->black ? 16 : 32;
-
-  for (int i = start; i < end; i++) {
+  for (int i = 0; i < 32; i++) {
     if (GamePieces[i].position == (dest_position & GamePieces[i].position)) {
-      std::cerr << "Error: In function ChessGame::Update// Cannot take "
-                   "pieces of the same color!\n";
-      return;
+      if (GamePieces[i].black == tempPiece->black) {
+        std::cerr << "Warning: In ChessGame::Update// Cannot take pieces of "
+                     "the same color!\n";
+        return;
+      } else {
+        GamePieces[i].position = 0;
+        /* Big problem here!
+         * Best explaination is that the print board function works by doing a
+         * bit and function to check if a position is in the right place however
+         * if position is 0 anding it would still be zero which flags the
+         * collision warning on PrintBoard
+         * UPDATE: using a XOR in printBoard instead of & fixed the problem.
+         */
+      }
     }
   }
-
   tempPiece->position = dest_position;
   /*
    * move piece at src var into the place at dest var
