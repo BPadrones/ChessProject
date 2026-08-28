@@ -1,6 +1,7 @@
 #include "myChess.h"
 #include <cctype>
 #include <iostream>
+#include <random>
 #include <string>
 #include <vector>
 
@@ -9,7 +10,7 @@ Piece *ChessGame::FindAt(Bitboard position) {
   std::vector<Piece *> collisions;
 
   for (int i = 0; i < 32; i++) {
-    if (GamePieces[i].position == (GamePieces[i].position & position))
+    if (0 == (GamePieces[i].position ^ position))
       collisions.push_back(&GamePieces[i]);
   }
   if (collisions.size() > 1) {
@@ -147,7 +148,7 @@ void ChessGame::Update(std::string move) {
   Piece *tempPiece = FindAt(src_position);
 
   for (int i = 0; i < 32; i++) {
-    if (GamePieces[i].position == (dest_position & GamePieces[i].position)) {
+    if (0 == (dest_position ^ GamePieces[i].position)) {
       if (GamePieces[i].black == tempPiece->black) {
         std::cerr << "Warning: In ChessGame::Update// Cannot take pieces of "
                      "the same color!\n";
