@@ -12,28 +12,15 @@ int main() {
   ChessGame game1;
   std::string playerMove;
 
-  // while (!game1.won) {
-  /* Game loop is
-   * print PrintBoard
-   * check rules
-   * update board.
-   */
+  while (!game1.won) {
   game1.PrintBoard();
-  // Temp comment out to test the Update Function //
-  // playerMove = game1.GetInput();
+   playerMove = game1.GetInput();
+   game1.Update(playerMove);
   // game1.CheckRules(playerMove);
-  game1.Update("D2D4");
-  game1.Update("C7C5");
-  game1.Update("B1C3");
-  game1.PrintBoard();
-  game1.Update("E1E2");
-  game1.PrintBoard();
-  game1.Update("C1E8");
-  game1.PrintBoard();
-  // std::cout << "\e[1J\033[1;1H"; // terminal commands that clear the
-  // terminal std::cout.flush();             // and print new input like a
+ std::cout << "\e[1J\033[1;1H"; // terminal commands that clear the
+   std::cout.flush();             // and print new input like a
   // video game.
   //  system.("cls") if not using terminal emulator.std::cout.flush();
-  //}
+ }
   return 0;
 }

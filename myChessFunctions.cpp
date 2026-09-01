@@ -79,7 +79,7 @@ void ChessGame::PrintBoard() {
       check = check << ((row * 8) + col);
       std::vector<Piece> collisions;
       for (Piece x : GamePieces) {
-        if (0 == (x.position ^ check))
+        if ( 0 == (x.position ^ check))
           collisions.push_back(x);
       }
       if (collisions.size() > 1) {
@@ -128,7 +128,7 @@ std::string ChessGame::GetInput() {
   } while (!parseMove(playerMoveDest));
   position = Coor2Array(playerMoveSrc);
   check = check << position;
-  return "";
+  return playerMoveSrc+playerMoveDest;
 }
 
 void ChessGame::CheckRules(std::string move) {};
@@ -155,22 +155,9 @@ void ChessGame::Update(std::string move) {
         return;
       } else {
         GamePieces[i].position = 0;
-        /* Big problem here!
-         * Best explaination is that the print board function works by doing a
-         * bit and function to check if a position is in the right place however
-         * if position is 0 anding it would still be zero which flags the
-         * collision warning on PrintBoard
-         * UPDATE: using a XOR in printBoard instead of & fixed the problem.
-         */
       }
     }
   }
   tempPiece->position = dest_position;
-  /*
-   * move piece at src var into the place at dest var
-   * if piece at dest variable remove it from the GamePieces
-   * update won bool and any other game counters. (turn count, playermove,
-   * ect)
-   */
   return;
 }

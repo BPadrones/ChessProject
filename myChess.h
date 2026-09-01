@@ -45,6 +45,7 @@ public:
   // 32 Pieces and sets the pieces according to the string variable which is a
   // FEN string
   void PrintBoard();
+  /* CAN OPTIMIZE TO GO THROUGH  pieces first*/
   // outputs board State to console
   std::string GetInput();
   /* in the function recieves input from the player and parses it to validate a
@@ -58,8 +59,7 @@ public:
   /* This function takes a unsigned long long(chessboard position) and returns a
    * pointer to the chessPiece that is at position. */
   void Update(std::string move);
-  /* *NEEDS IMPLEMENTATION
-   *  This function takes in a string of 4 characters of form
+   /*  This function takes in a string of 4 characters of form
    * source[x][y]dest[x][y] Then updates the chessBoard to reflect the move
    * made.*/
 };
