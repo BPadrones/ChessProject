@@ -112,12 +112,13 @@ bool ChessGame::parseMove(std::string playerMove) {
 }
 
 std::string ChessGame::GetInput() {
-  Bitboard check = 1;
-  int position;
+  // I want to check if move is valic too.
   std::string playerMoveSrc;
   std::string playerMoveDest;
 
   do {
+    // need to check for if a piece you can move is here
+    // need to allow for reselection
     std::cout << "Input Source position:";
     std::cin >> playerMoveSrc;
   } while (!parseMove(playerMoveSrc));
@@ -125,13 +126,16 @@ std::string ChessGame::GetInput() {
   do {
     std::cout << "Input Destination position:";
     std::cin >> playerMoveDest;
-  } while (!parseMove(playerMoveDest));
-  position = Coor2Array(playerMoveSrc);
-  check = check << position;
+    // need to check if choosen piece can move to this position
+  } while (!parseMove(playerMoveDest)&& );
+
   return playerMoveSrc+playerMoveDest;
 }
 
-void ChessGame::CheckRules(std::string move) {};
+bool ChessGame::CheckRules(std::string move) {
+  
+return true;
+};
 
 void ChessGame::Update(std::string move) {
   std::string src = move.substr(0, 2);
@@ -146,6 +150,7 @@ void ChessGame::Update(std::string move) {
   dest_position = dest_position << shifter;
 
   Piece *tempPiece = FindAt(src_position);
+  
 
   for (int i = 0; i < 32; i++) {
     if (0 == (dest_position ^ GamePieces[i].position)) {

@@ -14,9 +14,8 @@ int main() {
 
   while (!game1.won) {
   game1.PrintBoard();
-   playerMove = game1.GetInput();
+   playerMove = game1.GetInput(); // This needs work!!
    game1.Update(playerMove);
-  // game1.CheckRules(playerMove);
  std::cout << "\e[1J\033[1;1H"; // terminal commands that clear the
    std::cout.flush();             // and print new input like a
   // video game.
