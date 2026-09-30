@@ -1,8 +1,7 @@
 #include "myChess.h"
 
 /* To Do List *
- * - [ ] Get ChessGame::Udate working properly.
- *    - [ ]
+ * - [x] Get ChessGame::Udate working properly.
  * - [ ] Get CHessGame::GetInput running
  *    - [ ] implement chess runles in getInput
  */
