@@ -103,7 +103,7 @@ std::string ChessGame::GetInput() {
     // need to allow for reselection
     std::cout << "Input Source position:";
     std::cin >> playerMoveSrc;
-  } while (!parseMove(playerMoveSrc));
+  } while (!parseMove(playerMoveSrc) && ExistAt(playerMoveSrc));
 
   do {
     std::cout << "Input Destination position:";
@@ -118,7 +118,25 @@ bool ChessGame::CheckRules(std::string move) {
 return true;
 };
 
-Piece *ChessGame::FindAt(Bitboard position) {
+bool ChessGame::ExistAt(std::string coord) {
+ Bitboard position = Coor2Array(coord);
+
+  std::vector<Piece *> collisions;
+
+  for (int i = 0; i < 32; i++) {
+    if (0 == (GamePieces[i].position ^ position))
+      collisions.push_back(&GamePieces[i]);
+  }
+  if (collisions.size() > 1) {
+    return false;
+  }
+  if (collisions.empty()) {
+    return false;
+  }
+  return true;
+}
+
+Piece *ChessGame::FindAt(Bitboard position){
   std::vector<Piece *> collisions;
 
   for (int i = 0; i < 32; i++) {
@@ -137,6 +155,7 @@ Piece *ChessGame::FindAt(Bitboard position) {
   }
   return collisions[0];
 }
+
 
 void ChessGame::Update(std::string move) {
   std::string src = move.substr(0, 2);

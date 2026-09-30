@@ -58,9 +58,10 @@ public:
    * I want this to check if The rules are being followed when getting the input
    * */
 
-  Piece *FindAt(Bitboard position);
+  bool ExistAt(std::string coord);
   /* This function takes a unsigned long long(chessboard position) and returns a
    * pointer to the chessPiece that is at position. */
+  Piece *FindAt(Bitboard position);
   void Update(std::string move);
    /*  This function takes in a string of 4 characters of form
    * source[x][y]dest[x][y] Then updates the chessBoard to reflect the move
