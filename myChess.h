@@ -31,6 +31,9 @@ private:
   bool parseMove(std::string playerMove);
   // makes sure playermove is a 2 character string withe the first letter being
   // A-H and the second being 1-8
+  
+  bool CheckEmpty(std::string playerMove);
+  bool CheckColor(std::string playerMove);
   int Coor2Array(std::string move);
   std::string Array2Coor(int index);
   // the two functions above convert back and forth to coordate string and
@@ -38,6 +41,7 @@ private:
 
 public:
   bool won; // Bool to control game loop.
+  int turnCount;
   ChessGame();
   /*Sets won to false, creates an instance of 32 Pieces and sets the pieces in
    * starting game position.*/
@@ -58,7 +62,6 @@ public:
    * I want this to check if The rules are being followed when getting the input
    * */
 
-  bool ExistAt(std::string coord);
   /* This function takes a unsigned long long(chessboard position) and returns a
    * pointer to the chessPiece that is at position. */
   Piece *FindAt(Bitboard position);

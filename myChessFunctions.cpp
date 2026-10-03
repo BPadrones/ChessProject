@@ -16,6 +16,33 @@ bool ChessGame::parseMove(std::string playerMove) {
   return true;
 }
 
+bool ChessGame::CheckEmpty(std::string playerMove){
+    Bitboard position = 1;
+    position = position << Coor2Array(playerMove);
+    Piece *temp = FindAt(position);
+    if (temp == nullptr) {
+      std::cout<<"Selection is empty. Try Again\n";
+      return false;
+    }
+    else{
+      return true;
+    }
+}
+
+bool ChessGame::CheckColor(std::string playerMove){
+  Bitboard position = 1;
+  position = position << Coor2Array(playerMove);
+  Piece *temp = FindAt(position);
+  if (temp == nullptr)
+    return false;
+   if ( temp->black != turnCount%2 ){
+     std::cout<<"Selection is not under your control. Try Again\n"<<std::endl;
+    return false; 
+   }else{
+     return true;
+   }
+}
+
 int ChessGame::Coor2Array(std::string move) {
   int position;
   position = 63 - (((int(move[1]) - 49) * 8) + (8 - (int(move[0]) - 65)) - 1);
@@ -61,6 +88,7 @@ ChessGame::ChessGame() {
 }
 
 void ChessGame::PrintBoard() {
+  std::cout<<"Turn: "<<turnCount<<std::endl;
   char board[8][8] = {};
   char rowLabel = '8';
   Piece *Temp = nullptr;
@@ -98,12 +126,14 @@ std::string ChessGame::GetInput() {
   std::string playerMoveSrc;
   std::string playerMoveDest;
 
+  bool control = true;
   do {
     // need to check for if a piece you can move is here
     // need to allow for reselection
     std::cout << "Input Source position:";
     std::cin >> playerMoveSrc;
-  } while (!parseMove(playerMoveSrc) && ExistAt(playerMoveSrc));
+   std::cout<<parseMove(playerMoveSrc)<<" / "<<CheckEmpty(playerMoveSrc)<<" /"<<CheckColor(playerMoveSrc)<<" /\n";
+  } while (!( parseMove(playerMoveSrc) && CheckEmpty(playerMoveSrc) && CheckColor(playerMoveSrc)) );
 
   do {
     std::cout << "Input Destination position:";
@@ -118,24 +148,6 @@ bool ChessGame::CheckRules(std::string move) {
 return true;
 };
 
-bool ChessGame::ExistAt(std::string coord) {
- Bitboard position = Coor2Array(coord);
-
-  std::vector<Piece *> collisions;
-
-  for (int i = 0; i < 32; i++) {
-    if (0 == (GamePieces[i].position ^ position))
-      collisions.push_back(&GamePieces[i]);
-  }
-  if (collisions.size() > 1) {
-    return false;
-  }
-  if (collisions.empty()) {
-    return false;
-  }
-  return true;
-}
-
 Piece *ChessGame::FindAt(Bitboard position){
   std::vector<Piece *> collisions;
 
@@ -149,8 +161,6 @@ Piece *ChessGame::FindAt(Bitboard position){
     return nullptr;
   }
   if (collisions.empty()) {
-    std::cout
-        << "Function ChessGame::FindAt(Bitboard position) ://Position Empty\n";
     return nullptr;
   }
   return collisions[0];
@@ -184,5 +194,6 @@ void ChessGame::Update(std::string move) {
     }
   }
   tempPiece->position = dest_position;
+  turnCount++;
   return;
 }
